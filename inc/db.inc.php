@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/html; charset=utf-8");
 // Расположение базы данных
 define('DB_HOST', 'localhost');
 // Логин для подключения к базе данных
@@ -13,3 +14,5 @@ define('ORDERS_LOG', 'orders.log');
 $basket = array();
 // Хранение корзины товаров в корзине пользователя
 $count = 0;
+// Подключение к базе данных в перменной лежит ресурс
+$link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die(mysqli_error($link));
