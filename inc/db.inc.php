@@ -15,4 +15,9 @@ $basket = array();
 // Хранение корзины товаров в корзине пользователя
 $count = 0;
 // Подключение к базе данных в перменной лежит ресурс
-$link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die(mysqli_error($link));
+$link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die(mysqli_connect_error($link));
+/* Проверяем соединение */
+if (!$link) {
+   printf("Соединение не установлено: %s\n", mysqli_connect_error());
+   exit();
+}
