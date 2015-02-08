@@ -70,6 +70,17 @@ function myBasket(){
 	$sql = 'SELECT id, title, author, pubyear, price FROM catalog WHERE id IN ($ids)';
 	if(!$result = mysqli_query($link, $sql))
 		return false;
-	//return $result;
+	$items = result2Array($result);
+	mysqli_free_result($result);
+	return $items;
 }
 // Функция, которая принимает результат myBasket() и возвращает ассоциативный массив товаров, дополненный их количеством
+function result2Array($data){
+	global $basket;
+	$arr = array();
+	while($row = mysqli_fetch_assoc($data)){
+		$row['quantity'] = $basket[$row['id']];
+		$arr[] = $row;
+	}
+	return $arr;
+}
