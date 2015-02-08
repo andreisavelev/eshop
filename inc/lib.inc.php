@@ -53,6 +53,7 @@ function basketInit(){
 		saveBasket();
 	}else{
 		$basket = unserialize(base64_decode($_COOKIE['basket']));
+		//print_r($basket); exit;
 		$count = count($basket) - 1;
 	}
 }
@@ -66,8 +67,12 @@ function add2Basket($id, $q){
 function myBasket(){
 	global $basket, $link;
 	$goods = array_keys($basket);
-	$ids = implode(',', $goods);
-	$sql = 'SELECT id, title, author, pubyear, price FROM catalog WHERE id IN ($ids)';
+	// Вырезаем orderid
+	array_shift($goods);
+	// Получаем строку id через запятую
+	$ids = implode(",", $goods);
+	// Готовим запрос
+	$sql = "SELECT id, title, author, pubyear, price FROM catalog WHERE id IN ($ids)";
 	if(!$result = mysqli_query($link, $sql))
 		return false;
 	$items = result2Array($result);
